@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { State } from '../types/state.types';
+import { StateDto } from '../types/state.types';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class StateService {
-    private _state$ = new BehaviorSubject<State>(null);
-    public state$: Observable<State> = this._state$.asObservable();
+    private _state$ = new BehaviorSubject<StateDto>(null);
+    public state$: Observable<StateDto> = this._state$.asObservable();
 
     constructor(private localStorageService: LocalStorageService) {
         const defaultState = {

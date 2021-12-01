@@ -1,0 +1,27 @@
+<mat-card class="product-card">
+    <div class="product-image-container">
+        <img src="{{ data.image }}" alt="Foto" class="product-image" />
+    </div>
+    <mat-card-content>
+        <mat-card-subtitle>Kategória</mat-card-subtitle>
+        <mat-card-title class="product-title">{{ data.title }}</mat-card-title>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start end">
+                <mat-icon color="accent">euro</mat-icon>
+                <h2 class="product-price">{{ data.price }}</h2>
+            </div>
+            <mat-form-field class="product-quantity" appearance="standard">
+                <input matInput type="text" [(ngModel)]="quantity" disabled />
+                <button *ngIf="quantity" matPrefix mat-icon-button (click)="quantity = quantity > 1 ? quantity - 1 : quantity">
+                    <mat-icon class="product-quantity-icon">remove</mat-icon>
+                </button>
+                <button *ngIf="quantity" matSuffix mat-icon-button (click)="quantity = quantity + 1">
+                    <mat-icon class="product-quantity-icon">add</mat-icon>
+                </button>
+            </mat-form-field>
+            <button mat-icon-button (click)="addToCart()">
+                <mat-icon fontSet="material-icons-outlined">shopping_cart</mat-icon>
+            </button>
+        </div>
+    </mat-card-content>
+</mat-card>

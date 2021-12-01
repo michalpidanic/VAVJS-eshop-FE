@@ -10,6 +10,8 @@ import { SuccessNotificationComponent } from './components/notifications/success
 import { WarningNotificationComponent } from './components/notifications/warning-notification.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RouterModule } from '@angular/router';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
     declarations: [
@@ -19,9 +21,11 @@ import { RouterModule } from '@angular/router';
         InfoNotificationComponent,
         WarningNotificationComponent,
         NotFoundComponent,
+        HeaderComponent,
+        NavbarComponent,
     ],
     imports: [CommonModule, MaterialModule, RouterModule, FormsModule],
-    exports: [LoadingComponent, NotFoundComponent],
+    exports: [LoadingComponent, NotFoundComponent, HeaderComponent],
     providers: [{ provide: LOCAL_STORAGE_TOKEN, useValue: localStorage }],
 })
 export class CommonAppModule {}

@@ -1,4 +1,4 @@
-export interface State {
+export interface StateDto {
     isLoggedIn: boolean;
     token: string;
     username: string;

@@ -19,6 +19,7 @@ export class NotificationService {
                     snackBar.dismiss();
                 },
             },
+            panelClass: ['notification-snackbar'],
             duration: 5000,
         });
     }
@@ -31,6 +32,7 @@ export class NotificationService {
                     snackBar.dismiss();
                 },
             },
+            panelClass: ['notification-snackbar'],
             duration: 5000,
         });
     }
@@ -43,6 +45,7 @@ export class NotificationService {
                     snackBar.dismiss();
                 },
             },
+            panelClass: ['notification-snackbar'],
             duration: 5000,
         });
     }
@@ -55,6 +58,7 @@ export class NotificationService {
                     snackBar.dismiss();
                 },
             },
+            panelClass: ['notification-snackbar'],
             duration: 5000,
         });
     }
