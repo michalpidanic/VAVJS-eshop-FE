@@ -70,7 +70,7 @@
               ],
               "outputHashing": "all"
             },
-            "development": {
+            "local": {
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
@@ -83,6 +83,14 @@
                   "with": "src/environments/environment.dev.ts"
                 }
               ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
@@ -93,9 +101,11 @@
             "production": {
               "browserTarget": "VAVJS-eshop-FE:build:production"
             },
+            "local": {
+              "browserTarget": "VAVJS-eshop-FE:build:development"
+            },
             "development": {
-              "browserTarget": "VAVJS-eshop-FE:build:development",
-              "proxyConfig": "src/proxy.conf.json"
+              "browserTarget": "VAVJS-eshop-FE:build:development"
             }
           },
           "defaultConfiguration": "development"

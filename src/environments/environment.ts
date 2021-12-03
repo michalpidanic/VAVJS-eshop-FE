@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    baseUrl: '/api',
+    baseUrl: 'http://127.0.0.1:8000/api',
     assetsUrl: 'localhost:4200/assets',
 };
 

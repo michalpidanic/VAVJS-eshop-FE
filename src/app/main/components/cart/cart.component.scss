@@ -1,0 +1,39 @@
+.cart-container {
+  width: 80%;
+  padding-top: 16px;
+  padding-left: 16px;
+  margin: 0 !important;
+}
+
+.product-image-container {
+  padding: 0 0 16px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.cart-item {
+  height: 100px !important;
+}
+
+.cart-image {
+  width: auto;
+  height: 70px;
+  object-fit: cover;
+}
+
+.cart-quantity {
+  width: 100px;
+}
+
+.cart-quantity-icon {
+  font-size: 15px;
+}
+
+.cart-empty-cart {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.cart-empty-cart-icon {
+  font-size: 2em;
+  margin-bottom: 0.2em;
+}

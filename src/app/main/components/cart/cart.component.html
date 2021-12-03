@@ -1,1 +1,42 @@
-<p>cart works!</p>
+<div fxLayout="row" fxLayoutAlign="center">
+    <div class="cart-container" fxLayout="row">
+        <mat-list fxFill>
+            <div mat-subheader>Nákupný košík</div>
+            <div *ngIf="items.length > 0; else emptyCart">
+                <mat-list-item *ngFor="let item of items" class="cart-item">
+                    <div fxLayout="row" fxFill fxLayoutAlign="space-between center">
+                        <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="30px">
+                            <img src="{{ item.item.image }}" class="cart-image" />
+                            <h5>{{ item.item.title }}</h5>
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="center">
+                            <span>Cena za kus: {{ item.item.price }}€/ks</span>
+                            <span>Cena spolu: {{ item.item.price * item.quantity }}€</span>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <mat-form-field class="cart-quantity" appearance="standard">
+                                <input matInput type="text" [(ngModel)]="item.quantity" disabled />
+                                <button *ngIf="item.quantity" matPrefix mat-icon-button (click)="subtractQuantity(item.item.id)">
+                                    <mat-icon class="cart-quantity-icon">remove</mat-icon>
+                                </button>
+                                <button *ngIf="item.quantity" matSuffix mat-icon-button (click)="addQuantity(item.item.id)">
+                                    <mat-icon class="cart-quantity-icon">add</mat-icon>
+                                </button>
+                            </mat-form-field>
+                            <button mat-icon-button (click)="removeItem(item.item.id)">
+                                <mat-icon> clear </mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+            </div>
+            <ng-template #emptyCart>
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" class="cart-empty-cart">
+                    <mat-icon class="cart-empty-cart-icon">shopping_cart</mat-icon>
+                    <h1>Váš nákupný košík je prázdny</h1>
+                </div>
+            </ng-template>
+        </mat-list>
+    </div>
+</div>

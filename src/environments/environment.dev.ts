@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
-    baseUrl: '/api',
+    baseUrl: 'server:8000/api',
     assetsUrl: 'localhost:4200/assets',
 };

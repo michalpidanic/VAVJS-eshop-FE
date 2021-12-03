@@ -26,4 +26,15 @@ export class CartService {
         this.localStorageService.setItem('cart', JSON.stringify({ items: items }));
         return of(1);
     }
+
+    removeFromCart(item: ProductDto) {
+        let items = this.getCartItems();
+        const index = items.indexOf(items.find(i => i.item.id == item.id));
+        items.splice(index, 1);
+        this.localStorageService.setItem('cart', JSON.stringify({ items: items }));
+    }
+
+    clearCart() {
+        this.localStorageService.setItem('cart', JSON.stringify({ items: [] }));
+    }
 }
