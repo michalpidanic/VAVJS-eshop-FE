@@ -32,6 +32,7 @@ export class CartService {
         const index = items.indexOf(items.find(i => i.item.id == item.id));
         items.splice(index, 1);
         this.localStorageService.setItem('cart', JSON.stringify({ items: items }));
+        return of(1);
     }
 
     clearCart() {

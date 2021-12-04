@@ -4,12 +4,12 @@ import { NotFoundComponent } from './common/components/not-found/not-found.compo
 
 const routes: Routes = [
     {
-        path: 'auth',
-        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
-    },
-    {
         path: 'main',
         loadChildren: () => import('./main/main.module').then(m => m.MainModule),
+    },
+    {
+        path: 'admin',
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     },
     {
         path: '',

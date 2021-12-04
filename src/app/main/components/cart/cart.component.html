@@ -1,42 +1,135 @@
 <div fxLayout="row" fxLayoutAlign="center">
-    <div class="cart-container" fxLayout="row">
-        <mat-list fxFill>
-            <div mat-subheader>Nákupný košík</div>
-            <div *ngIf="items.length > 0; else emptyCart">
-                <mat-list-item *ngFor="let item of items" class="cart-item">
-                    <div fxLayout="row" fxFill fxLayoutAlign="space-between center">
-                        <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="30px">
-                            <img src="{{ item.item.image }}" class="cart-image" />
-                            <h5>{{ item.item.title }}</h5>
+    <div class="cart-container" fxLayout="column">
+        <mat-card fxFill>
+            <mat-card-content>
+                <mat-vertical-stepper #stepper [linear]="true">
+                    <mat-step [completed]="items.length > 0">
+                        <ng-template matStepLabel>Nákupný košík</ng-template>
+                        <mat-list fxFill>
+                            <div *ngIf="items.length > 0; else emptyCart">
+                                <mat-list-item *ngFor="let item of items" class="cart-item">
+                                    <div fxLayout="row" fxFill fxLayoutAlign="start center">
+                                        <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex="50">
+                                            <img src="{{ item.item.image }}" class="cart-image" />
+                                            <h5>{{ item.item.title }}</h5>
+                                        </div>
+                                        <div fxLayout="column" fxLayoutAlign="center" fxFlex="30">
+                                            <span>Cena za kus: {{ item.item.price }}€/ks</span>
+                                            <span>Cena spolu: {{ item.item.price * item.quantity }}€</span>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutAlign="end center" fxFlex="20">
+                                            <mat-form-field class="cart-quantity" appearance="standard">
+                                                <input matInput type="text" [(ngModel)]="item.quantity" disabled />
+                                                <button *ngIf="item.quantity" matPrefix mat-icon-button (click)="subtractQuantity(item)">
+                                                    <mat-icon class="cart-quantity-icon">remove</mat-icon>
+                                                </button>
+                                                <button *ngIf="item.quantity" matSuffix mat-icon-button (click)="addQuantity(item)">
+                                                    <mat-icon class="cart-quantity-icon">add</mat-icon>
+                                                </button>
+                                            </mat-form-field>
+                                            <button mat-icon-button (click)="removeItem(item)">
+                                                <mat-icon> clear </mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <mat-divider></mat-divider>
+                                </mat-list-item>
+                            </div>
+                            <ng-template #emptyCart>
+                                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" class="cart-empty-cart">
+                                    <mat-icon class="cart-empty-cart-icon">shopping_cart</mat-icon>
+                                    <h1>Váš nákupný košík je prázdny</h1>
+                                </div>
+                            </ng-template>
+                            <div fxLayout="row" fxLayoutAlign="end">
+                                <h3>Celková cena: {{ price }}€</h3>
+                            </div>
+                        </mat-list>
+                        <div fxLayout="row" fxLayoutAlign="end">
+                            <button mat-raised-button matStepperNext [disabled]="!(items.length > 0)" color="accent">Ďalej</button>
                         </div>
-                        <div fxLayout="column" fxLayoutAlign="center">
-                            <span>Cena za kus: {{ item.item.price }}€/ks</span>
-                            <span>Cena spolu: {{ item.item.price * item.quantity }}€</span>
+                    </mat-step>
+                    <mat-step [completed]="customerDataForm.valid">
+                        <ng-template matStepLabel>Dodacie údaje</ng-template>
+                        <div fxLayout="row" fxLayoutAlign="center center">
+                            <form [formGroup]="customerDataForm" fxLayout="column" fxFlex="70">
+                                <div
+                                    fxLayout="row"
+                                    fxLayout.lt-sm="column"
+                                    fxLayoutAlign="start-strecth"
+                                    fxLayoutGap="16px"
+                                    fxLayoutGap.lt-sm="20px"
+                                >
+                                    <mat-form-field appearance="standard" fxFlex>
+                                        <mat-label>Meno</mat-label>
+                                        <input formControlName="firstName" matInput autocomplete="given-name" />
+                                    </mat-form-field>
+                                    <mat-form-field appearance="standard" fxFlex>
+                                        <mat-label>Priezvisko</mat-label>
+                                        <input formControlName="lastName" matInput autocomplete="family-name" />
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start-strecth" fxLayoutGap="16px">
+                                    <mat-form-field appearance="standard" fxFlex>
+                                        <mat-label>E-mail</mat-label>
+                                        <input formControlName="email" autocomplete="email" matInput />
+                                        <mat-icon matSuffix>mail</mat-icon>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="standard" fxFlex>
+                                        <mat-label>Telefón</mat-label>
+                                        <input formControlName="phone" autocomplete="phone" matInput />
+                                        <mat-icon matSuffix>phone</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+                                <div
+                                    fxLayout="row"
+                                    fxLayout.lt-sm="column"
+                                    fxLayoutAlign="start-strecth"
+                                    fxLayoutGap="16px"
+                                    fxLayoutGap.lt-sm="20px"
+                                >
+                                    <mat-form-field appearance="standard" fxFlex>
+                                        <mat-label>Mesto</mat-label>
+                                        <input formControlName="city" matInput autocomplete="locality" />
+                                    </mat-form-field>
+                                    <mat-form-field appearance="standard" fxFlex>
+                                        <mat-label>PSČ</mat-label>
+                                        <input formControlName="zipCode" matInput autocomplete="postal-code" />
+                                    </mat-form-field>
+                                </div>
+
+                                <mat-form-field appearance="standard" fxFlex>
+                                    <mat-label>Ulica</mat-label>
+                                    <input formControlName="street" matInput autocomplete="street-address" />
+                                </mat-form-field>
+                            </form>
                         </div>
-                        <div fxLayout="row" fxLayoutAlign="start center">
-                            <mat-form-field class="cart-quantity" appearance="standard">
-                                <input matInput type="text" [(ngModel)]="item.quantity" disabled />
-                                <button *ngIf="item.quantity" matPrefix mat-icon-button (click)="subtractQuantity(item.item.id)">
-                                    <mat-icon class="cart-quantity-icon">remove</mat-icon>
-                                </button>
-                                <button *ngIf="item.quantity" matSuffix mat-icon-button (click)="addQuantity(item.item.id)">
-                                    <mat-icon class="cart-quantity-icon">add</mat-icon>
-                                </button>
-                            </mat-form-field>
-                            <button mat-icon-button (click)="removeItem(item.item.id)">
-                                <mat-icon> clear </mat-icon>
+
+                        <div fxLayout="row" fxLayoutAlign="end">
+                            <button mat-flat-button matStepperPrevious>Späť</button>
+                            <button mat-raised-button matStepperNext color="accent" [disabled]="!customerDataForm.valid">Ďalej</button>
+                        </div>
+                    </mat-step>
+                    <mat-step #thirdStep>
+                        <ng-template matStepLabel>Spôsob platby</ng-template>
+                        <mat-radio-group fxLayout="column" fxLayoutGap="10px" [(ngModel)]="paymentMethodSelected">
+                            <mat-radio-button class="example-radio-button" *ngFor="let payment of paymentMethods" [value]="payment">
+                                {{ payment }}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                        <div fxLayout="row" fxLayoutAlign="end">
+                            <button mat-raised-button color="accent" routerLink="/main/checkout" (click)="createOrder()">
+                                Dokončiť objednávku s povinnosťou platby
                             </button>
                         </div>
-                    </div>
-                    <mat-divider></mat-divider>
-                </mat-list-item>
-            </div>
-            <ng-template #emptyCart>
-                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" class="cart-empty-cart">
-                    <mat-icon class="cart-empty-cart-icon">shopping_cart</mat-icon>
-                    <h1>Váš nákupný košík je prázdny</h1>
-                </div>
-            </ng-template>
-        </mat-list>
+                    </mat-step>
+                </mat-vertical-stepper>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-flat-button routerLink="/main/product">< Späť k nákupu</button>
+            </mat-card-actions>
+        </mat-card>
     </div>
 </div>
