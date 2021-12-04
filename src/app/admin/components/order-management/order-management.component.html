@@ -1,0 +1,70 @@
+<div fxLayout="row" fxLayoutAlign="center">
+    <div class="order-management-container" fxLayout="column">
+        <mat-card>
+            <mat-card-content>
+                <mat-list fxFill>
+                    <div *ngIf="orders.length > 0; else noOrders">
+                        <mat-list-item *ngFor="let order of orders" class="order-list-item">
+                            <div fxLayout="row" fxFill fxLayoutAlign="start center" class="order-list-item-row">
+                                <div fxLayout="column" fxFlex>
+                                    <h3>Objednávka č.{{ order.id }}</h3>
+                                    <small>Dátum vytvorenia: {{ order.createdAt | date }}</small>
+                                    <mat-expansion-panel class="order-expansion-panel">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title> Zákazník: </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <div fxLayout="column" class="order-item">
+                                            <span>Meno priezvisko: {{ order.Customer.firstName + ' ' + order.Customer.lastName }}</span>
+                                            <span>Email: {{ order.Customer.email }}</span>
+                                            <span>Telefón: {{ order.Customer.phone }}</span>
+                                            <span
+                                                >Adresa:
+                                                {{
+                                                    order.Customer.street + ', ' + order.Customer.city + ' ' + order.Customer.zipCode
+                                                }}</span
+                                            >
+                                        </div>
+                                    </mat-expansion-panel>
+                                    <mat-expansion-panel class="order-expansion-panel">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title> Položky: </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <mat-list>
+                                            <mat-list-item *ngFor="let item of order.orderItems" class="order-list-item">
+                                                <div fxLayout="column" class="order-item">
+                                                    <span>Názov produktu: {{ item.Product.title }}</span>
+                                                    <span>Cena za kus: {{ item.Product.price }}€</span>
+                                                    <span>Počet kusov: {{ item.quantity }}</span>
+                                                    <span>Cena spolu: {{ item.Product.price * item.quantity }}€</span>
+                                                </div>
+                                                <mat-divider></mat-divider>
+                                            </mat-list-item>
+                                        </mat-list>
+                                    </mat-expansion-panel>
+
+                                    <div fxLayout="row" fxLayoutAlign="end">
+                                        <h4>Cena objednávky: {{ getOrderTotalPrice(order) }}€</h4>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+                                        <h4>Stav objednávky:</h4>
+                                        <mat-form-field>
+                                            <input [ngModel]="order.state" #inputRef matInput type="text" />
+                                        </mat-form-field>
+                                        <button mat-raised-button (click)="editOrderState(order.id, inputRef.value)" color="primary">
+                                            Upraviť
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-list-item>
+                    </div>
+                    <ng-template #noOrders>
+                        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" class="cart-empty-cart">
+                            <h1>Žiadne objednávky</h1>
+                        </div>
+                    </ng-template>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

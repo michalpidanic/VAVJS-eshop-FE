@@ -1,22 +1,17 @@
 import { Routes } from '@angular/router';
 import { CartComponent } from '../components/cart/cart.component';
 import { CheckoutComponent } from '../components/checkout/checkout.component';
-import { ProductDetailComponent } from '../components/product-detail/product-detail.component';
 import { ProductOverviewComponent } from '../components/product-overview/product-overview.component';
 
 export const MAIN_ROUTES: Routes = [
     {
         path: '',
-        redirectTo: 'product',
+        redirectTo: 'products',
         pathMatch: 'full',
     },
     {
-        path: 'product',
+        path: 'products',
         component: ProductOverviewComponent,
-    },
-    {
-        path: 'product/:id',
-        component: ProductDetailComponent,
     },
     {
         path: 'cart',
