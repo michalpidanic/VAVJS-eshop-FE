@@ -30,3 +30,9 @@ export interface OrderItemDto {
     id: number;
     quantity: number;
 }
+
+export interface AdvertisementDto {
+    url: string;
+    image: string;
+    counter: number;
+}

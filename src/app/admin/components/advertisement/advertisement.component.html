@@ -1,9 +1,27 @@
 <div fxLayout="row" fxLayoutAlign="center">
     <div class="advertisement-container" fxLayout="column">
         <mat-card>
+            <mat-card-title>Reklama</mat-card-title>
             <mat-card-content>
-                <h1>kokot</h1>
+                <form [formGroup]="advertisementForm" (ngSubmit)="onSubmit()">
+                    <div fxLayout="column" fxLayoutAlign="center">
+                        <mat-form-field appearance="standard" fxFlex>
+                            <mat-label>Href</mat-label>
+                            <input formControlName="url" matInput autocomplete="off" />
+                        </mat-form-field>
+                        <mat-form-field appearance="standard" fxFlex>
+                            <mat-label>Obrázok</mat-label>
+                            <input formControlName="image" matInput autocomplete="off" />
+                        </mat-form-field>
+                    </div>
+                </form>
+                <h3>Počítadlo: {{ counter }}</h3>
             </mat-card-content>
+            <mat-card-actions>
+                <div fxLayout="row" fxLayoutAlign="end">
+                    <button mat-raised-button color="primary" (click)="onSubmit()">Upraviť</button>
+                </div>
+            </mat-card-actions>
         </mat-card>
     </div>
 </div>

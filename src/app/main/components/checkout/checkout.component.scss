@@ -14,3 +14,15 @@
   margin-bottom: 0.2em;
   color: rgba(63, 81, 181, 0.54);
 }
+
+.checkout-image-container {
+  display: flex;
+  justify-content: center;
+}
+
+.checkout-image {
+  margin: 0 !important;
+  width: auto;
+  height: 20vw;
+  object-fit: cover;
+}
